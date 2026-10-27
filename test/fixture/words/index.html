@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="et">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pealkirjad</title>
+<style>
+  body { margin: 0; padding: 8px; }
+  h1, h2 { font: 700 20px/1.3 monospace; margin: 0 0 24px; }
+  /* 200 px holds about 16 letters of a 20 px monospace font. */
+  .narrow { width: 200px; }
+  .w12 { width: 12ch; }
+  .w10 { width: 10ch; }
+  .anywhere { overflow-wrap: anywhere; }
+</style>
+</head>
+<body>
+<!-- Breaks between two letters: the word does not fit and may break anywhere. -->
+<h1 class="narrow anywhere">Raamatupidamisteenused</h1>
+<!-- Fits. -->
+<h2>Lühike pealkiri</h2>
+<!-- Breaks at the soft hyphen, which shows a hyphen: fine. -->
+<h2 class="narrow">Raamatupidamis&shy;teenused</h2>
+<!-- Breaks after a hyphen: fine. -->
+<h2 class="narrow">Raamatupidamis-teenused</h2>
+<!-- Breaks right after a letter outside plain ASCII (Ettevõtlusnõ|ustamine),
+     and a Cyrillic word: both are errors like any other. -->
+<h2 class="w12 anywhere">Ettevõtlusnõustamine</h2>
+<h2 class="w10 anywhere" lang="ru">Бухгалтерскиеуслуги</h2>
+</body>
+</html>

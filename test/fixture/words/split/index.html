@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="et">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tähthaaval</title>
+<style>
+  body { margin: 0; padding: 8px; }
+  h2 { font: 700 20px/1.3 monospace; margin: 0 0 24px; }
+  .narrow { width: 200px; }
+  /* One box per letter, rising into place when the heading scrolls into view. */
+  .char { display: inline-block; transform: translateY(0.6em); opacity: 0; transition: transform 0.2s, opacity 0.2s; }
+  .shown .char { transform: none; opacity: 1; }
+  /* An old-style screen-reader copy: a 1 px box, where every letter wraps. */
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .wide { width: 600px; height: 8px; background: #ccc; }
+</style>
+</head>
+<body>
+<h2 class="narrow split">Head raamatupidamisteenused</h2>
+<h2><span class="sr-only">Raamatupidamisteenused</span><span aria-hidden="true">Teenused</span></h2>
+<div class="wide"></div>
+<script>
+  // Splits each heading into one element per letter, the way text animation
+  // libraries do, and keeps the real text for screen readers.
+  for (const heading of document.querySelectorAll('.split')) {
+    const text = heading.textContent;
+    heading.setAttribute('aria-label', text);
+    heading.textContent = '';
+    text.split(' ').forEach((word, i) => {
+      if (i) heading.append(' ');
+      const box = document.createElement('span');
+      box.setAttribute('aria-hidden', 'true');
+      for (const letter of word) {
+        const char = document.createElement('span');
+        char.className = 'char';
+        char.textContent = letter;
+        box.append(char);
+      }
+      heading.append(box);
+    });
+    new IntersectionObserver((entries, observer) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add('shown');
+        observer.unobserve(entry.target);
+      }
+    }).observe(heading);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="et">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paigutus</title>
+<!-- Out of search, and still rendered: a broken word is a defect anyway. -->
+<meta name="robots" content="noindex">
+<style>
+  body { margin: 0; padding: 8px; }
+  h1, h2, h3 { font: 700 20px/1.3 monospace; margin: 0 0 24px; }
+  .narrow { width: 200px; }
+  .anywhere { overflow-wrap: anywhere; }
+  button { font: inherit; border: 0; padding: 0; background: none; text-align: left; }
+  .c { display: inline-block; transform: translateY(120%); transition: transform 0.4s; }
+  .in .c { transform: none; }
+  .fly .c { transform: translate(-3em, 1.5em); transition-duration: 0.8s; }
+  .fly.in .c { transform: none; }
+</style>
+</head>
+<body>
+<!-- None of these breaks a word: each part is on a row of its own by design,
+     the text runs down the screen, or a big first letter sits lower. -->
+<h1 class="narrow"><span style="display: block">Teenused</span><span style="display: block">Hinnakiri</span></h1>
+<h2 class="narrow"><button style="display: grid"><span>E-arve</span><span>Tarnijalt võib nõuda</span></button></h2>
+<h2 class="narrow" style="display: flex; flex-direction: column"><span>Kodulehe</span><span>tegemine</span></h2>
+<h3 class="narrow"><span style="display: block; font-size: 14px">01</span>Raamatupidamine</h3>
+<h2 style="writing-mode: vertical-rl; height: 300px">Tehnoloogia</h2>
+<h2 style="transform: rotate(-90deg); transform-origin: left top; width: 300px; margin-top: 300px">Tehnoloogia</h2>
+<h2 style="transform: rotate(90deg); transform-origin: left top; width: 300px; margin-left: 40px">Tehnoloogia</h2>
+<h2><span style="font-size: 4em; line-height: 1">S</span>uur valik</h2>
+<!-- Letters that rise into place in a random order and fit on one line, and
+     letters that fly in from the left and below: measured before they land,
+     a letter still on its way looks like the start of a new line. -->
+<h2 class="reveal">Kinnisvarahaldus</h2>
+<h2 class="reveal fly">Ehitusjärelevalve</h2>
+<!-- A slight tilt still reads along its lines, so its broken word is found. -->
+<h2 class="narrow anywhere" style="transform: rotate(-4deg)">Finantsjuhtimisteenused</h2>
+<!-- Warnings: hyphens: auto, which draws a hyphen only where the browser can
+     hyphenate Estonian, and an address, which has no better place to break. -->
+<h2 class="narrow anywhere" lang="et" style="hyphens: auto">Raamatupidamisteenused</h2>
+<h2 class="narrow anywhere">info@raamatupidamine.ee</h2>
+<script>
+  for (const heading of document.querySelectorAll('.reveal')) {
+    const text = heading.textContent;
+    heading.setAttribute('aria-label', text);
+    heading.textContent = '';
+    [...text].forEach((letter, i) => {
+      const char = document.createElement('span');
+      char.className = 'c';
+      char.textContent = letter;
+      char.style.transitionDelay = `${((i * 7) % 10) * 0.12}s`;
+      heading.append(char);
+    });
+    requestAnimationFrame(() => requestAnimationFrame(() => heading.classList.add('in')));
+  }
+</script>
+</body>
+</html>

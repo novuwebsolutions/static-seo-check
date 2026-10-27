@@ -1,0 +1,17 @@
+{
+  "name": "static-seo-check",
+  "version": "1.0.0",
+  "description": "Read a built static site the way a search engine does: missing pages, titles, canonical and hreflang links, the sitemap, and words in headings that break between two letters on phones.",
+  "type": "module",
+  "bin": { "static-seo-check": "static-seo-check.mjs" },
+  "files": ["static-seo-check.mjs"],
+  "scripts": { "test": "node --test" },
+  "engines": { "node": ">=18" },
+  "peerDependencies": { "playwright": ">=1.40" },
+  "peerDependenciesMeta": { "playwright": { "optional": true } },
+  "keywords": ["seo", "static-site", "sitemap", "hreflang", "canonical", "broken-links", "robots-txt", "typography", "astro", "playwright"],
+  "homepage": "https://github.com/novuwebsolutions/static-seo-check",
+  "repository": { "type": "git", "url": "https://github.com/novuwebsolutions/static-seo-check.git" },
+  "author": "Novu Web Solutions OÜ (https://novu.ee)",
+  "license": "MIT"
+}
